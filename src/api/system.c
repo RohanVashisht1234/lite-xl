@@ -238,8 +238,8 @@ top:
         lua_pushstring(L, "filedropped");
         lua_pushstring(L, e.drop.data);
         // a DND into dock event fired before a window is created
-        lua_pushinteger(L, mx * (window_renderer ? window_renderer->scale_x : 0));
-        lua_pushinteger(L, my * (window_renderer ? window_renderer->scale_y : 0));
+        lua_pushnumber(L, mx * (window_renderer ? window_renderer->scale_x : 0));
+        lua_pushnumber(L, my * (window_renderer ? window_renderer->scale_y : 0));
         return 4;
       }
 
@@ -288,8 +288,8 @@ top:
         RenWindow* window_renderer = ren_find_window_from_id(e.button.windowID);
         lua_pushstring(L, "mousepressed");
         lua_pushstring(L, button_name(e.button.button));
-        lua_pushinteger(L, e.button.x * window_renderer->scale_x);
-        lua_pushinteger(L, e.button.y * window_renderer->scale_y);
+        lua_pushnumber(L, e.button.x * window_renderer->scale_x);
+        lua_pushnumber(L, e.button.y * window_renderer->scale_y);
         lua_pushinteger(L, e.button.clicks);
         return 5;
       }
@@ -300,8 +300,8 @@ top:
         RenWindow* window_renderer = ren_find_window_from_id(e.button.windowID);
         lua_pushstring(L, "mousereleased");
         lua_pushstring(L, button_name(e.button.button));
-        lua_pushinteger(L, e.button.x * window_renderer->scale_x);
-        lua_pushinteger(L, e.button.y * window_renderer->scale_y);
+        lua_pushnumber(L, e.button.x * window_renderer->scale_x);
+        lua_pushnumber(L, e.button.y * window_renderer->scale_y);
         return 4;
       }
 
@@ -316,18 +316,18 @@ top:
         }
         RenWindow* window_renderer = ren_find_window_from_id(e.motion.windowID);
         lua_pushstring(L, "mousemoved");
-        lua_pushinteger(L, e.motion.x * window_renderer->scale_x);
-        lua_pushinteger(L, e.motion.y * window_renderer->scale_y);
-        lua_pushinteger(L, e.motion.xrel * window_renderer->scale_x);
-        lua_pushinteger(L, e.motion.yrel * window_renderer->scale_y);
+        lua_pushnumber(L, e.motion.x * window_renderer->scale_x);
+        lua_pushnumber(L, e.motion.y * window_renderer->scale_y);
+        lua_pushnumber(L, e.motion.xrel * window_renderer->scale_x);
+        lua_pushnumber(L, e.motion.yrel * window_renderer->scale_y);
         return 5;
       }
 
     case SDL_EVENT_MOUSE_WHEEL:
       lua_pushstring(L, "mousewheel");
-      lua_pushinteger(L, e.wheel.y);
+      lua_pushnumber(L, e.wheel.y);
       // Use -x to keep consistency with vertical scrolling values (e.g. shift+scroll)
-      lua_pushinteger(L, -e.wheel.x);
+      lua_pushnumber(L, -e.wheel.x);
       return 3;
 
     case SDL_EVENT_FINGER_DOWN:
